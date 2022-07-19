@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="./js/pageLocation.js"></script>  
+    <script src="./js/callFetch.js"></script>
     <title>Project</title>
 </head>
 <body>
@@ -11,35 +15,21 @@
         <header id="header-content">
             <div class="box-logo">
                 <h1>Circle</h1>
-                <img src="./assets/circle.svg" alt="logo-circle">
+                <a href="index.html"><img src="./assets/circle.svg" alt="logo-circle"></a>   
             </div>
-            <nav id="menu" class="menu-fixed">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#project">Projects</a></li>
-                    <li><a href="#service">Services</a></li>
+            <nav id="menu" class="menu-header">
+                <ul class="headline-medium">
+                    <li><a class="home-html" href="index.html">Home</a></li>
+                    <li><a class="project-html" href="project.html">Projects</a></li>
+                    <li><a class="service-html" href="#">Services</a></li>
                 </ul>
             </nav>
-            <div class="box-contact">
-                <a href="contact.html">Contact</a>
+            <div class="box-contact headline-medium ">
+                <a href="contact.html">Contact Us</a>
             </div>
         </header>
         <main id="main-content">
-            <section class="section-project-container">
-                <article class="article-project-wrap">
-                    <header class="box-project-title">
-                        <h2>Simplyfy</h2>
-                        <p>UI Design & App Development</p>
-                        <p>Completed on <span>June 22, 2021</span></p>
-                    </header>
-                    <div class="box-project-image">
-                        <img src="./assets/simplify-image.jpg" alt="simplify-image">
-                    </div>
-                    <div class="box-project-info">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure minus accusantium voluptates repellat tempora suscipit sit rem odit fuga blanditiis molestias, atque explicabo sint quam maiores doloremque enim, libero ipsum dolores maxime eos esse fugit? Dicta eum nisi similique at repellendus minus corrupti pariatur eos architecto, id porro iste ad eligendi iusto numquam optio perferendis exercitationem sed. Id sint officia animi quos officiis nam odio reprehenderit. Quidem recusandae voluptas aliquid facilis, corrupti facere explicabo soluta itaque enim. Autem unde aut at, ullam laudantium quae vel incidunt odio quia voluptatibus inventore vero qui! Repellat eaque sequi voluptatum fuga doloribus eveniet mollitia?</p>
-                    </div>
-                </article>
-            </section>
+            <section class="section-project-container"></section>
             <div id="container-projects">
                 <section class="section-project">
                     <h3>Other Projects</h3>
@@ -120,5 +110,6 @@
             </section>
         </footer>
     </div>
+
 </body>
 </html>
