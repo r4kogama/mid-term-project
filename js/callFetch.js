@@ -29,13 +29,16 @@ const URLs = {
     <article class="article-project-wrap">
         <header class="box-project-title">
             <h2>${title}</h2>
-            <p>${subTitle}</p>
-            <p>Completed on <span>${date}</span></p>
+            <div class="box-subtitle">
+              <p class="intro-medium">${subTitle}</p>
+              <p class="intro-regular">Completed on <span>${date}</span></p>
+            </div>
         </header>
         <div class="box-project-image">
-            <img src="./assets/${photo}.jpg" alt="project-image-${photo}">
+            <img class="photo-view" src="./assets/${photo}.jpg" alt="project-image-${photo}">
+            <img class="photo-shadow" src="./assets/${photo}.jpg" alt="project-image-${photo}">
         </div>
-        <div class="box-project-info">
+        <div class="box-project-info headline-medium">
             <p>${text}</p>
         </div>
     </article>
