@@ -2,4 +2,179 @@
 
 
 
+/****
+* BODY ****
+**/
+:root {
+    --Primary: #072AC8;
+    --Accent: #43D2FF;
+    --Primary-hover: #A2D6F9;
+    --Primary-tapped: #D1EDFF;
+    --Neutral-dark: #292E47;
+    --Neutral-medium: #6B708D;
+    --Neutral-light: #F4F6FC;
+    --Neutral-lightBlue: #ECF7FF;
+    --Secondary: #FFC600;
+    --InputBack:#6b708d1a;
+}
+
+*{
+    -webkit-transition: width 1s, height 1s;
+    transition: width 1s, width 1s;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#wrapper{
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    box-sizing: border-box;
+    font-family: 'roboto','times new roman','sans-serif';
+    font-size: 14px;
+    font-style: normal;
+    scroll-behavior: smooth;
+    background: var(--Neutral-light);
+}
+
+/****
+* HEADER ****
+**/
+
+#header-content{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1100px;
+    align-items: center;
+    position:relative;
+    padding: 15px 0px;
+}
+
+.box-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+h1{
+    position: absolute;
+    z-index: -1;
+    color: transparent;
+}
+.menu-header ul{
+    display: flex;
+    justify-content: center;
+}
+.menu-header ul li{
+    padding: 0px 20px;
+}
+.menu-header ul li:focus{
+    color: var(--Primary);
+}
+
+.menu-header ul li a{
+    color:var(--Neutral-medium);
+}
+
+.box-contact{
+    padding: 15px 36px;
+    background: var(--Primary);
+    color: white;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box-contact a{
+    color:white;
+}
+
+
+/***** MAIN  *****/
+
+#main-content{
+    padding-top: 78px;
+}
+
+
+
+
+
+/******* PRESETS STYLES **********/
+.heading1{
+    font-size: 60px; 
+    font-weight: 700;
+    font-style: inherit;
+}
+h2{
+    font-size: 50px; 
+    font-weight: 700;
+    font-style: inherit;
+}
+h3{
+    font-size: 40px; 
+    font-weight: 700;
+    font-style: inherit;
+}
+h4{
+    font-size: 24px; 
+    font-weight: 700;
+    font-style: inherit;
+}
+.intro-regular{
+    font-size: 20px; 
+    font-weight: 400;
+    font-style: inherit;
+}
+.intro-medium{
+    font-size: 24px; 
+    font-weight: 500;
+    font-style: inherit;
+}
+.headline-medium {
+    font-size: 17px; 
+    font-weight: 500;
+    font-style: inherit;
+}
+.headline-regular {
+   font-size: 17px; 
+   font-weight: 400;
+   font-style: inherit;
+}
+.caption-1{
+    font-size: 15px; 
+    font-weight: 400;
+    font-style: inherit;
+}
+.caption-2{
+    font-size: 13px; 
+    font-weight: 400;
+    font-style: inherit;
+}
+
+.col-prim{color: var(--Primary)!important;}
+
+.col-acc{color: var(--Accent);}
+
+.col-med{color: var(--Neutral-medium);}
+
+.col-dark{color:var(--Neutral-dark);}
+
+.col-sec{color: var(--Secondary);}
+
+.col-hover{color:var(--Primary-hover);}
+
+
 
