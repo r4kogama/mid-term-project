@@ -28,24 +28,30 @@
             <a class="btn-style headline-medium " href="contact.html">Contact Us</a>
         </header>
         <main id="main-content">
-            <h2>Contact Us</h2>
-            <form action="" method="POST" class="form-contact">
-                <div class="input-box box-name">
-                    <label for="name">Full name *</label>
-                    <input type="text" name="name" id="name" placeholder="Enter you full name">
-                </div>
-                <div class="input-box box-email">
-                    <label for="name">Email</label>
-                    <input type="text" name="email" id="email" placeholder="Enter you email address">
-                    <label for="name">Phone</label>
-                    <input type="text" name="Phone" id="Phone" placeholder="Enter your phone number">
-                </div>
-                <div class="input-box box-name">
-                    <label for="name">Message</label>
-                    <textarea name="message" id="message" cols="30" rows="10" placeholder="Write your message here ...."></textarea>
-                </div>
-                <button type="submit">Submit</button>
-            </form>
+            <div class="container-form-contact">
+                <h2>Contact Us</h2>
+                <form action="" method="POST" class="form-contact">
+                    <div class="input-box box-name">
+                        <label for="name">Full name *</label>
+                        <input type="text" name="name" id="name" placeholder="Enter you full name">
+                    </div>
+                    <div class="input-box-row input-box">
+                        <div class="box-email">
+                            <label for="name">Email</label>
+                            <input type="email" name="email" id="email" placeholder="Enter you email address">
+                        </div>
+                        <div class="box-tel">
+                            <label for="name">Phone</label>
+                            <input type="tel" name="Phone" id="Phone" placeholder="Enter your phone number">
+                        </div>
+                    </div>
+                    <div class="input-box box-message">
+                        <label for="name">Message</label>
+                        <textarea name="message" id="message" cols="30" rows="10" placeholder="Write your message here ...."></textarea>
+                    </div>
+                    <input class="btn-style" value="Submit" type="submit"></button>
+                </form>
+            </div>
         </main>
         <footer id="footer-content" class="wrapper-section">
             <div class="container-logo-footer">
