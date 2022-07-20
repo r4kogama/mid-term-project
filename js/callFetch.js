@@ -15,7 +15,7 @@ const URLs = {
     }
   }
   
-  const fillDataProject = (datas, idPhoto) => {
+  const getDataProject = (datas, idPhoto) => {
     const sectionProject = document.querySelector('.section-project-container');
     //let numPhoto = getPhotoProjectRandom();
     let titleProject = getTitleProject(datas);
@@ -31,7 +31,7 @@ const URLs = {
             <h2>${title}</h2>
             <div class="box-subtitle">
               <p class="intro-medium">${subTitle}</p>
-              <p class="intro-regular">Completed on <span>${date}</span></p>
+              <p class="intro-regular col-dark">Completed on <span class="data-now">${date}</span></p>
             </div>
         </header>
         <div class="box-project-image">
@@ -70,5 +70,5 @@ const URLs = {
   window.addEventListener('load', async () => {
     let idProject = localStorage.getItem("project");
     let responseJson = await getProjectChooseId(idProject);
-    fillDataProject(responseJson, idProject);
+    getDataProject(responseJson, idProject);
   })

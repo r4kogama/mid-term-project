@@ -12,6 +12,12 @@ window.addEventListener('load', () =>{
 })
 
 
+
+
+
+
+
+
 /* 
 // las urls se almacenan en un objeto
 const URLs = {

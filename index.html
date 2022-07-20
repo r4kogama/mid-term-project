@@ -62,7 +62,7 @@
                     <li><img src="./assets/google-logo.svg" alt="google"></li>
                     <li><img src="./assets/microsoft-logo.svg" alt="microsoft"></li>
                     <li><img src="./assets/fedex-logo.svg" alt="fedex"></li>
-                    <li><img src="./assets/amazon-logo.svg" alt="amazon"></li>
+                    <li class="amazon"><img src="./assets/amazon-logo.svg" alt="amazon"></li>
                 </ul>
             </section>
             <div id="container-projects">
@@ -77,7 +77,7 @@
                                     <p class="headline-regular">UI Design & App Development</p>
                                 </header>
                                 <footer class="headline-regular">
-                                    <a href="project.html" class="learn-more">Learn more</a>
+                                    <a href="project.html" data-project="1" class="learn-more">Learn more</a>
                                 </footer>
                             </div>
                         </article>
@@ -89,7 +89,7 @@
                                     <p class="headline-regular">Web Development</p>
                                 </header>
                                 <footer class="headline-regular">
-                                    <a href="project.html" class="learn-more">Learn more</a>
+                                    <a href="project.html" data-project="2" class="learn-more">Learn more</a>
                                 </footer>
                             </div>
                         </article>
@@ -101,7 +101,7 @@
                                     <p class="headline-regular">User Experience Design</p>
                                 </header>
                                 <footer class="headline-regular">
-                                    <a href="project.html" class="learn-more">Learn more</a>
+                                    <a href="project.html" data-project="3" class="learn-more">Learn more</a>
                                 </footer>
                             </div>
                         </article>
@@ -110,23 +110,23 @@
             </div>
         </div>
         <div id="container-testimonial">
-            <section class="section-testimonial">
-                <div class="background-orbit">
-                    <div class="box-info-testimonial">
-                        <h3>Hear What Our Clients Have to Say</h3>
-                        <p>“Circle helped us through every stage of our startup. We really enjoyed working with you.”</p>
-                        <figure class="figure-profile">
+            <section class="section-testimonial-dark">
+                <div class="background-orbit-transparent grid-testimonial">
+                    <div class="emoji"><img src="./assets/memoji-1.png" alt="emoji1"></div>
+                    <h3 class="col-lig">Hear What Our Clients Have to Say</h3>
+                    <div class="emoji"><img src="./assets/memoji-2.png" alt="emoji2"></div>
+                    <p class="grid-4 col-sec intro-medium">“Circle helped us through every stage of our startup. We really enjoyed working with you.”</p>
+                    <div class="emoji"><img src="./assets/memoji-3.png" alt="emoji3"></div>
+                    <figure class="figure-profile">
+                        <div class="box-profile">
                             <img src="./assets/profile.png" alt="profile-user">
-                            <figcaption>
-                                <p>Kristin Watson</p>
-                                <p>Booking.com</p>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="emoji1"><img src="./assets/memoji-1.png" alt="emoji1"></div>
-                    <div class="emoji2"><img src="./assets/memoji-2.png" alt="emoji2"></div>
-                    <div class="emoji3"><img src="./assets/memoji-3.png" alt="emoji3"></div>
-                    <div class="emoji4"><img src="./assets/memoji-4.png" alt="emoji4"></div>
+                        </div>
+                        <figcaption>
+                            <p class="headline-regular">Kristin Watson</p>
+                            <p class="caption-2">Booking.com</p>
+                        </figcaption>
+                    </figure>
+                    <div class="emoji"><img src="./assets/memoji-4.png" alt="emoji4"></div>
                 </div>
             </section>
         </div>
@@ -134,46 +134,40 @@
             <div id="container-services">
                 <section class="section-services">
                     <h3>Our Services</h3>
-                    <div class="content-article-project">
+                    <div class="content-article-service">
                         <article class="ui-service service-article">
+                            <header class="box-title-service">
+                                <h4>User Interface Design</h4>
+                                <p class="intro-regular">Circle provides you with a stunning user interface design that is accessible to everyone.</p>
+                            </header class="box-title-service">
                             <div class="box-icon-service">
                                 <img src="./assets/pen.svg" alt="pen">
                             </div>
-                            <header>
-                                <h4>User Interface Design</h4>
-                            </header class="box-title-service">
-                            <div>
-                                <p>Circle provides you with a stunning user interface design that is accessible to everyone.</p>
-                            </div>
-                            <footer class="box-link-service">
+                            <footer class="box-link-service headline-regular">
                                 <a href="#">Learn more</a>
                             </footer>
                         </article>
                         <article class="ux-service service-article">
+                            <header class="box-title-service">
+                                <h4>User Experience Design</h4>
+                                <p class="intro-regular">Circle always focuses on delivering the best user experience to your customers.</p>
+                            </header>
                             <div class="box-icon-service">
                                 <img src="./assets/arrow.svg" alt="arrow">
                             </div>
-                            <header class="box-title-service">
-                                <h4>User Experience Design</h4>
-                            </header>
-                            <div>
-                                <p>Circle always focuses on delivering the best user experience to your customers.</p>
-                            </div>
-                            <footer class="box-link-service">
+                            <footer class="box-link-service headline-regular">
                                 <a href="#">Learn more</a>
                             </footer>
                         </article>
                         <article class="app-service service-article">
+                            <header class="box-title-service">
+                                <h4>Application Development</h4>
+                                <p class="intro-regular">We develop high-quality mobile and web applications using the latest technology stack.</p>
+                            </header>
                             <div class="box-icon-service">
                                 <img src="./assets/code.svg" alt="code">
                             </div>
-                            <header class="box-title-service">
-                                <h4>Application Development</h4>
-                            </header>
-                            <div>
-                                <p>We develop high-quality mobile and web applications using the latest technology stack.</p>
-                            </div>
-                            <footer class="box-link-service">
+                            <footer class="box-link-service headline-regular">
                                 <a href="#">Learn more</a>
                             </footer>
                         </article>
@@ -185,13 +179,15 @@
             <section class="section-subscribe">
                 <div class="box-title-subscribe">
                     <h3>Do you have any questions?</h3>
-                    <p>Let us help you!</p>
+                    <p class="intro-regular col-dark">Let us help you!</p>
                 </div>
                 <div class="box-form-subscribe">
-                    <form action="" method="get">
-                        <label for="email"></label>
-                        <input type="text" name="email" id="email" placeholder="Enter your email">
-                        <button type="submit">Subscribe</button>
+                    <form action="" method="get" class="form-susbs">
+                        <div class="input-box">
+                            <label for="email"></label>
+                            <input type="text" name="email" id="email" placeholder="Enter your email">
+                        </div>
+                        <button class="btn-style btn-subs headline-medium" type="submit">Subscribe</button>
                     </form>
                 </div>
             </section>
