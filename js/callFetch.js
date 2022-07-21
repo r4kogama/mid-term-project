@@ -2,12 +2,13 @@
 // urls save in json
 const URLs = {
     projects: 'https://jsonplaceholder.typicode.com/posts',
+    subscribe: 'https://jsonplaceholder.typicode.com/posts/1/comments',
   } 
   
 
   /*****  call server **** */
 
-  /****** Call fetch by id */
+  /****** Call fetch get project  by id */
   const getProjectChooseId = async (id) => {
     try{
         let response = await fetch(`${URLs.projects}/${id}`);
@@ -19,7 +20,7 @@ const URLs = {
     }
   }
   
-  /****** Call fetch all */
+  /****** Call fetch get project all */
   const getProjectAll = async () => {
     try{
         let response = await fetch(URLs.projects);
@@ -31,7 +32,29 @@ const URLs = {
     }
   }
   
- 
+  const postEmailSubcribe = async () => {
+    try{
+      let parametros = {
+          method: 'POST',
+          body: JSON.stringify({
+          name: 'foo',
+          email: 'bar',
+          postId: 1,
+        }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+      }
+      
+      let responseJson = await fetch(URLs.subscribe, parametros);
+        if(responseJson.ok){
+          return response.json();
+      }
+
+    }catch(err){
+      console.log(err);
+    }
+  }
   
 
   /**** print project by id in localstorage */
@@ -77,11 +100,12 @@ const URLs = {
         printDataProjects( item, titleProject);
       });
     }else{
-      let projectAle = getProjectRandom(datas.length);
+      let projectAle = getProjectRandom(datas.length-1, num = 3);//100
       let copyArr = datas.slice( (projectAle-3), projectAle);
       copyArr.forEach( (item, i) => {
         let titleProject = getTitleProject(item);
-        printDataProjects( item, titleProject[i]);
+        let indexAle = getProjectRandom(copyArr.length, num = 0);//3
+        printDataProjects( item, titleProject[indexAle]);
       });
     }
   }
@@ -132,8 +156,8 @@ const URLs = {
     }
   }
   
-  const getProjectRandom = (num) => {
-    return Math.floor(Math.random() * num) + 3;
+  const getProjectRandom = (num, min) => {
+    return Math.floor(Math.random() * num) + min;
   }
   
   const getCurrentDate = () => {
@@ -152,6 +176,7 @@ const URLs = {
       case 'index':
                   let responseJson = await getProjectAll();
                   getProjectsTypeInit(responseJson, namePage);
+                  postEmailSubcribe();
                   break;
       case 'project':
                     let idProject = localStorage.getItem("project");
@@ -161,7 +186,7 @@ const URLs = {
                       let responseJsonAll = await getProjectAll();
                       getProjectsTypeInit(responseJsonAll, namePage);
                     }else{
-                      location.href = window.location;
+                      location.href = window.location.href;
                     }
                     break;
       case 'service':
