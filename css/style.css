@@ -145,7 +145,7 @@ h1{
 .right-section{
     width: 50%;
     position: relative;
-    height: 600px;
+    height: 620px;
     margin-top: 40px;
 }
 
@@ -159,6 +159,7 @@ h1{
     background: url(../assets/hero-image.png) 50% 50% no-repeat;
     background-size: 100%;
     z-index: -1;
+    transform: rotateZ(3deg);
 }
 
 .right-section .image-card{
@@ -168,7 +169,7 @@ h1{
 }
 
 .box-image-card{
-    transform: translate(0%, 7%);
+    transform: translate(0%, 11%);
     filter: drop-shadow(-15px -15px 15px var(--InputBack));
 }
 
@@ -498,7 +499,10 @@ h1{
 
 .content-info-project footer a, .service-article footer a{color: var(--Primary);}
 
-.content-info-project header p{   margin-top: 10px;}
+.content-info-project header p{   
+    margin-top: 10px;
+    height: 40px;
+}
 
 .content-article-project header{
     padding-bottom: 50px;
@@ -517,7 +521,7 @@ h1{
 .background-purify{
     background: url('../assets/5.jpg') no-repeat;
 }
-.background-crypto{
+.background-cryptopie{
     background: url('../assets/6.jpg') no-repeat;
 }
 .background-simplify{

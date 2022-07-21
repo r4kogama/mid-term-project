@@ -1,9 +1,13 @@
+ 
 // urls save in json
 const URLs = {
     projects: 'https://jsonplaceholder.typicode.com/posts',
   } 
   
-  /****** Call fetch  */
+
+  /*****  call server **** */
+
+  /****** Call fetch by id */
   const getProjectChooseId = async (id) => {
     try{
         let response = await fetch(`${URLs.projects}/${id}`);
@@ -15,16 +19,32 @@ const URLs = {
     }
   }
   
-  const getDataProject = (datas, idPhoto) => {
-    const sectionProject = document.querySelector('.section-project-container');
-    //let numPhoto = getPhotoProjectRandom();
-    let titleProject = getTitleProject(datas);
-    let currentDate = getCurrentDate();
-    printDataProject( sectionProject, titleProject, idPhoto, datas.title, datas.body, currentDate );
+  /****** Call fetch all */
+  const getProjectAll = async () => {
+    try{
+        let response = await fetch(URLs.projects);
+        if(response.ok){
+            return response.json();
+        }
+    }catch(err){
+        console.log(err);
+    }
   }
   
-  /**** print datas in html */
-  const printDataProject = ( node, title, photo, subTitle, text, date ) => {
+ 
+  
+
+  /**** print project by id in localstorage */
+
+
+  const getDataProject = (datas, idPhoto) => {
+    const sectionProject = document.querySelector('.section-project-container');
+    let titleProject = getTitleProject(datas);
+    let currentDate = getCurrentDate();
+    printDataProjectById( sectionProject, titleProject, idPhoto, datas.title, datas.body, currentDate );
+  }
+
+  const printDataProjectById = ( node, title, photo, subTitle, text, date ) => {
     node.innerHTML = `
     <article class="article-project-wrap">
         <header class="box-project-title">
@@ -45,6 +65,49 @@ const URLs = {
     `;
   }
   
+
+  
+/********* Print 3 projects ********** */
+
+  const getProjectsTypeInit = (datas, name) => {
+    if(name === 'index'){
+      let copyArr = datas.slice(0, 3);
+      copyArr.forEach( item => {
+        let titleProject = getTitleProject(item);
+        printDataProjects( item, titleProject);
+      });
+    }else{
+      let projectAle = getProjectRandom(datas.length);
+      let copyArr = datas.slice( (projectAle-3), projectAle);
+      copyArr.forEach( (item, i) => {
+        let titleProject = getTitleProject(item);
+        printDataProjects( item, titleProject[i]);
+      });
+    }
+  }
+
+  const printDataProjects = (project, title) =>{
+    //let typeProject = getTypeProject(title.toLowerCase());
+    let container = document.querySelector('.content-article-project');
+    container.innerHTML += `
+      <article class="simplify project-article">
+        <div class="background-${title.toLowerCase()} background-style-project"></div>
+        <div class="content-info-project">
+            <header>
+                <h4>${title}</h4>
+                <p class="headline-regular">${project.title}</p>
+            </header>
+            <footer class="headline-regular">
+                <a href="project.html" data-project="${project.id}" class="learn-more">Learn more</a>
+            </footer>
+        </div>
+      </article>
+    `;
+  }
+
+
+  /********** Helper Fuctions *********** */
+
   const getTitleProject = (datosJson) => {
     switch(datosJson.id){
         case 1 :
@@ -53,12 +116,25 @@ const URLs = {
             return "Dashcoin";
         case 3 :
             return "Vectorify";
+        default:
+            return ['Orbit', 'Purify', 'CryptoPie'];
+    }
+  }
+
+  const getTypeProject = (type) => {
+    switch(type){
+        case 'simplify' :
+           return "UI Design & App Development";
+        case 'dashcoin' :
+            return "Web Development";
+        case 'vectorify' :
+            return "User Experience Design";
     }
   }
   
-  /* const getPhotoProjectRandom = () => {
-  return Math.floor(Math.random() * 6) + 1;
-  } */
+  const getProjectRandom = (num) => {
+    return Math.floor(Math.random() * num) + 3;
+  }
   
   const getCurrentDate = () => {
     let date = new Date();
@@ -66,9 +142,39 @@ const URLs = {
     customDate.splice(2, 0, ",");
     return customDate.join(' ');// month day , year
   }
-  
+
+
+  /********** LOAD ***********/
+
   window.addEventListener('load', async () => {
-    let idProject = localStorage.getItem("project");
-    let responseJson = await getProjectChooseId(idProject);
-    getDataProject(responseJson, idProject);
-  })
+    let namePage = getNamePage()[0];
+    switch(namePage){
+      case 'index':
+                  let responseJson = await getProjectAll();
+                  getProjectsTypeInit(responseJson, namePage);
+                  break;
+      case 'project':
+                    let idProject = localStorage.getItem("project");
+                    if(idProject !== 'undefined'){
+                      let responseJson = await getProjectChooseId(idProject);
+                      getDataProject(responseJson, idProject);
+                      let responseJsonAll = await getProjectAll();
+                      getProjectsTypeInit(responseJsonAll, namePage);
+                    }else{
+                      location.href = window.location;
+                    }
+                    break;
+      case 'service':
+                    break;
+      case 'contact':
+                    break;
+    }
+    
+  }) 
+
+
+  const getNamePage = () =>{
+    let URLactual = window.location.pathname;
+    let arrUrl = URLactual.split('/');
+    return arrUrl[arrUrl.length-1].split('.')
+  }

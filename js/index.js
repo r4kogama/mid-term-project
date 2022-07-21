@@ -1,14 +1,25 @@
 
-const localStorageData = (e) =>{
-  let link = e.currentTarget.dataset.project;
-  localStorage.setItem('project',link);
+const localStorageData =  (e) =>{
+  let link =  e.currentTarget.dataset.project;
+  localStorage.setItem('project', link);
 }
 
-window.addEventListener('load', () =>{
-  let links = document.querySelectorAll('.learn-more');
+window.addEventListener('load', async () =>{
+   setTimeout(() => {
+    let links =  document.querySelectorAll('.learn-more');
+    console.log(links)
+    links.forEach( link =>{  
+      console.log('ok')
+        link.addEventListener('click', localStorageData);
+    })
+  }, 100); 
+
+/*   let links = await document.querySelectorAll('.learn-more');
+  console.log(links)
   links.forEach( link =>{  
-      link.addEventListener('click', localStorageData, false);
-  })
+    console.log('ok')
+      link.addEventListener('click', localStorageData);
+  }) */
 })
 
 
@@ -18,25 +29,9 @@ window.addEventListener('load', () =>{
 
 
 
-/* 
-// las urls se almacenan en un objeto
-const URLs = {
-  projects: 'https://jsonplaceholder.typicode.com/posts',
-} 
 
 
-const getProjectChooseid = async (id) => {
-  try{
-      let response = await fetch(`${URLs.projects}/${id}`);
-      if(response.ok){
-          return response.json();
-      }
-  }catch(err){
-      console.log(err);
-  }
-}
-
-const fillDataProject = (datas) => {
+/* const fillDataProject = (datas) => {
       
   let subTitle = document.querySelector('.box-project-title p:first-child');
   subTitle.innerText = datas.title;
@@ -58,23 +53,4 @@ const fillDataProject = (datas) => {
           h2.innerText = "Vectorify";
           break;
   }
-
-
-  let dateProject = document.querySelector('.box-project-title p:last-child span');
-  let date = currentDate();
-  dateProject.innerText = date; 
-}
-
-
-const currentDate = () => {
-  let date = new Date();
-  let customDate = date.toString().split(' ').slice(1,4);
-  customDate.splice(2, 0, ",");
-  return customDate.join(' ');// month day , year
-}
-
-window.addEventListener('load', async () => {
-  let id = localStorage.getItem("project");
-  let responseJson = await getProjectChooseid(id);
-  fillDataProject(responseJson);
-}) */
+ */
