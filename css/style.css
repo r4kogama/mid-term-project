@@ -410,6 +410,7 @@ h1{
 .box-form-subscribe{
     width: 100%;
     max-width: 611px;
+    padding: 0px 20px;
 }
 
 .form-susbs .input-box > input{
@@ -439,9 +440,18 @@ h1{
     flex-wrap: nowrap;
     height: 80px;
     width: 100%;
-    padding: 0px 20px;
 }
 
+.subscribe-success{
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    width: 100%;
+    background: var(--Primary-tapped);
+}
 .form-susbs .input-box{
     background: var(--Neutral-light);
     height: inherit;
@@ -452,6 +462,7 @@ h1{
 }
 
 .btn-subs{
+    padding: 0;
     height: inherit;
     max-width: 198px;
     width: 100%;

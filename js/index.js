@@ -4,19 +4,17 @@ const localStorageData =  (e) =>{
   localStorage.setItem('project', link);
 }
 
-/*window.addEventListener('load', async () =>{
+window.addEventListener('load',  () =>{
    setTimeout(() => {
-    let links = await document.querySelectorAll('.learn-more');
-    console.log(links)
+    let links =  document.querySelectorAll('.learn-more');
     links.forEach( link =>{  
-      console.log('ok')
         link.addEventListener('click', localStorageData);
     })
   }, 100); 
 
-}) */
+}) 
 
-async function onLoad() {
+/* async function onLoad() {
 
   let links = await document.querySelectorAll('.learn-more');
    console.log(links)
@@ -26,7 +24,7 @@ async function onLoad() {
    }) 
 }
 
-onLoad();
+onLoad(); */
 
 
 

@@ -1,0 +1,14 @@
+GET   http://localhost:3000/subscribe/
+###
+GET   http://localhost:3000/subscribe?id=3
+###
+POST   http://localhost:3000/contact/
+content-type: application/json
+
+{
+    "fullname": "Aitor tilla",
+      "email": "user@user.com",
+      "tel": "43423423",
+      "message": "fsdfsdfsd"
+}
+###

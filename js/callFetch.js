@@ -2,13 +2,17 @@
 // urls save in json
 const URLs = {
     projects: 'https://jsonplaceholder.typicode.com/posts',
-    subscribe: 'https://jsonplaceholder.typicode.com/posts/1/comments',
+    subscribe: 'http://localhost:3000/subscribe/',
+    contact: 'http://localhost:3000/contact/',
   } 
   
 
-  /*****  call server **** */
+  /******************************
+   * ***  Request server ********
+   * ****************************/
 
-  /****** Call fetch get project  by id */
+  /****** Request fetch get project  by id *******/
+
   const getProjectChooseId = async (id) => {
     try{
         let response = await fetch(`${URLs.projects}/${id}`);
@@ -20,7 +24,8 @@ const URLs = {
     }
   }
   
-  /****** Call fetch get project all */
+  /****** Request fetch get project all *******/
+
   const getProjectAll = async () => {
     try{
         let response = await fetch(URLs.projects);
@@ -32,23 +37,24 @@ const URLs = {
     }
   }
   
-  const postEmailSubcribe = async () => {
+  /******** Request Register subscribe by email *********** */
+
+  const postEmailSubcribe = async (mail) => {
     try{
       let parametros = {
           method: 'POST',
           body: JSON.stringify({
-          name: 'foo',
-          email: 'bar',
-          postId: 1,
-        }),
+          email: mail,
+          }),
           headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+            'Content-type': 'application/json', 
           },
       }
-      
+
       let responseJson = await fetch(URLs.subscribe, parametros);
         if(responseJson.ok){
-          return response.json();
+          console.log('ok')
+          return responseJson.json();
       }
 
     }catch(err){
@@ -60,7 +66,7 @@ const URLs = {
   /**** print project by id in localstorage */
 
 
-  const getDataProject = (datas, idPhoto) => {
+  const generateDataProjectById = (datas, idPhoto) => {
     const sectionProject = document.querySelector('.section-project-container');
     let titleProject = getTitleProject(datas);
     let currentDate = getCurrentDate();
@@ -92,7 +98,7 @@ const URLs = {
   
 /********* Print 3 projects ********** */
 
-  const getProjectsTypeInit = (datas, name) => {
+  const generateDataProjects = (datas, name) => {
     if(name === 'index'){
       let copyArr = datas.slice(0, 3);
       copyArr.forEach( item => {
@@ -100,15 +106,15 @@ const URLs = {
         printDataProjects( item, titleProject);
       });
     }else{
-      let projectAle = getProjectRandom(datas.length-1, num = 3);//100
-      let copyArr = datas.slice( (projectAle-3), projectAle);
-      copyArr.forEach( (item, i) => {
-        let titleProject = getTitleProject(item);
-        let indexAle = getProjectRandom(copyArr.length, num = 0);//3
-        printDataProjects( item, titleProject[indexAle]);
-      });
+      for(let i = 0; i < 3; i++){
+          let numAleProject = getProjectRandom(datas.length, num = 3);//100
+          let arrTitle = getTitleProject(datas[numAleProject]);//item aleatory
+          let numAleTitle = getProjectRandom(arrTitle.length, num = 0);//3
+          printDataProjects( datas[numAleProject], arrTitle[numAleTitle]);
+      }
     }
   }
+
 
   const printDataProjects = (project, title) =>{
     //let typeProject = getTypeProject(title.toLowerCase());
@@ -127,6 +133,37 @@ const URLs = {
         </div>
       </article>
     `;
+  }
+
+  /*********** Get email form and generate message **************** */
+  const getEmailFormSubscribe = async (e) => {
+    try{
+      e.preventDefault();
+      let email = document.querySelector('.box-subs #email').value;
+      let success = statusSubscribe(e);
+      if(success){
+        let response = await postEmailSubcribe(email);
+      }
+    }catch(err){
+      console.log(`Error subscribe: ${err}`)
+    }
+  }
+
+  /********** Print message for subscribe ********/
+  const statusSubscribe = (evt) =>{
+    evt.target.innerText = 'Sending email... 💌';
+    setTimeout(() => {
+      evt.target.parentNode.remove();
+      let boxForm = document.querySelector('.box-form-subscribe');
+      let div = document.createElement('div');
+      div.setAttribute('class','subscribe-success');
+      let p = document.createElement('p');
+      p.setAttribute('class','intro-regular col-dark');
+      p.innerText = 'Thank you for subscribing  🤙';
+      div.appendChild(p);
+      boxForm.appendChild(div);
+    }, 1000); 
+    return true;
   }
 
 
@@ -156,8 +193,8 @@ const URLs = {
     }
   }
   
-  const getProjectRandom = (num, min) => {
-    return Math.floor(Math.random() * num) + min;
+  const getProjectRandom = (max, min) => {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
   
   const getCurrentDate = () => {
@@ -168,23 +205,27 @@ const URLs = {
   }
 
 
-  /********** LOAD ***********/
+  /*******************
+   ***** LOAD *******
+   *****************/
 
   window.addEventListener('load', async () => {
+    let btnSub = document.querySelector('.btn-subs');
     let namePage = getNamePage()[0];
     switch(namePage){
       case 'index':
                   let responseJson = await getProjectAll();
-                  getProjectsTypeInit(responseJson, namePage);
-                  postEmailSubcribe();
+                  generateDataProjects(responseJson, namePage);
+                  btnSub.addEventListener('click', getEmailFormSubscribe.bind(btnSub), false)
                   break;
       case 'project':
                     let idProject = localStorage.getItem("project");
                     if(idProject !== 'undefined'){
                       let responseJson = await getProjectChooseId(idProject);
-                      getDataProject(responseJson, idProject);
+                      generateDataProjectById(responseJson, idProject);
                       let responseJsonAll = await getProjectAll();
-                      getProjectsTypeInit(responseJsonAll, namePage);
+                      generateDataProjects(responseJsonAll, namePage);
+                      btnSub.addEventListener('click', getEmailFormSubscribe.bind(btnSub), false)
                     }else{
                       location.href = window.location.href;
                     }
@@ -197,6 +238,8 @@ const URLs = {
     
   }) 
 
+
+ 
 
   const getNamePage = () =>{
     let URLactual = window.location.pathname;
