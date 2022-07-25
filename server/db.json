@@ -1,17 +1,8 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "fullname": "Aitor tilla",
-      "email": "user@user.com",
-      "tel": "43423423",
-      "message": "fsdfsdfsd"
-    }
+  "contact": [
+
   ],
   "subscribe": [
-    {
-      "email": "oscargamaroses@gmail.com",
-      "id": 1
-    }
+
   ]
 }

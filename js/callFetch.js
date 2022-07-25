@@ -1,7 +1,7 @@
- 
+
 // urls save in json
 const URLs = {
-    projects: 'https://jsonplaceholder.typicode.com/posts',
+    projects: 'https://jsonplaceholder.typicode.com/posts/',
     subscribe: 'http://localhost:3000/subscribe/',
     contact: 'http://localhost:3000/contact/',
   } 
@@ -15,10 +15,12 @@ const URLs = {
 
   const getProjectChooseId = async (id) => {
     try{
-        let response = await fetch(`${URLs.projects}/${id}`);
-        if(response.ok){
-            return response.json();
+        let response = await fetch(URLs.projects.concat('?id=').concat(id));
+        if (!response.ok) { //bad
+          let error = await response.text();
+          throw new Error(error);
         }
+        return response.json();
     }catch(err){
         console.log(err);
     }
@@ -29,9 +31,11 @@ const URLs = {
   const getProjectAll = async () => {
     try{
         let response = await fetch(URLs.projects);
-        if(response.ok){
-            return response.json();
+        if (!response.ok) { //bad
+          let error = await response.text();
+          throw new Error(error);
         }
+        return response.json();
     }catch(err){
         console.log(err);
     }
@@ -39,32 +43,64 @@ const URLs = {
   
   /******** Request Register subscribe by email *********** */
 
-  const postEmailSubcribe = async (mail) => {
+  const postInsertEmailSubcribe = async (mail, current) => {
     try{
-      let parametros = {
+      let params = {
           method: 'POST',
           body: JSON.stringify({
           email: mail,
+          date : current
           }),
           headers: {
             'Content-type': 'application/json', 
           },
       }
 
-      let responseJson = await fetch(URLs.subscribe, parametros);
-        if(responseJson.ok){
-          console.log('ok')
-          return responseJson.json();
+      let response = await fetch(URLs.subscribe, params);
+      if (!response.ok) { //bad
+        let error = await response.text();
+        throw new Error(error);
       }
-
+      return response.json();
     }catch(err){
-      console.log(err);
+      console.log(`Error insert form susbcribe: ${err}`);
+    }
+  }
+
+  /******** Request insert contact  *********** */
+
+  const postInsertFormContact = async (objInput) => {
+    try{
+      let formData = new FormData();
+      formData.append('date', new Date().toLocaleDateString());
+      formData.append('email', objInput.email.value);
+      formData.append('name', objInput.name.value);
+      formData.append('phone', objInput.tel.value);
+      formData.append('message', objInput.msg.value);
+       //Create an object from the form data entries
+      let formDataObject = Object.fromEntries(formData.entries());
+      // Format the plain form data as JSON
+      let formDataJson = JSON.stringify(formDataObject);
+      let params = {
+        method: 'POST',
+        body: formDataJson,
+          headers: {
+            'Content-type': 'application/json', 
+          },
+      }
+      let response = await fetch(URLs.contact, params);
+      if (!response.ok) { //bad
+        let error = await response.text();
+        throw new Error(error);
+      }
+      return response.json();// ok
+    }catch(err){
+      console.log(`Error insert form contact: ${err}`);
     }
   }
   
 
   /**** print project by id in localstorage */
-
 
   const generateDataProjectById = (datas, idPhoto) => {
     const sectionProject = document.querySelector('.section-project-container');
@@ -136,34 +172,58 @@ const URLs = {
   }
 
   /*********** Get email form and generate message **************** */
+
   const getEmailFormSubscribe = async (e) => {
     try{
       e.preventDefault();
-      let email = document.querySelector('.box-subs #email').value;
-      let success = statusSubscribe(e);
-      if(success){
-        let response = await postEmailSubcribe(email);
+      let date = new Date().toLocaleDateString();
+      let email = document.querySelector('.box-subs #email');
+      let response = await postInsertEmailSubcribe(email.value, date);
+      email.value = '';
+      if(Object.keys(response).length !== 0){ //object no empty
+        statusSucceffulDataInsert(e, 'subscribe');
       }
     }catch(err){
       console.log(`Error subscribe: ${err}`)
     }
   }
 
-  /********** Print message for subscribe ********/
-  const statusSubscribe = (evt) =>{
-    evt.target.innerText = 'Sending email... 💌';
+  /*********** Get value form contact generate request **************** */
+
+  const getValueFormContact = async (e) => {
+    try{
+      e.preventDefault();
+      let objFormInput = {
+        email : document.querySelector('.input-box #email'),
+        name : document.querySelector('.input-box #name'),
+        tel : document.querySelector('.input-box #phone'),
+        msg : document.querySelector('.input-box #message'),
+      }
+      let response = await postInsertFormContact(objFormInput);
+      clearInput(objFormInput);
+      if(Object.keys(response).length !== 0){// no empty
+        statusSucceffulDataInsert(e, 'contact');
+      }
+    }catch(err){
+      console.log(`Error form contact: ${err}`)
+    }
+   }
+
+  /********** Print message for subscribe  & form contact ********/
+   
+
+  const printMessageSubscribe = (e) => {
     setTimeout(() => {
-      evt.target.parentNode.remove();
+      e.target.parentNode.remove();
       let boxForm = document.querySelector('.box-form-subscribe');
       let div = document.createElement('div');
       div.setAttribute('class','subscribe-success');
       let p = document.createElement('p');
-      p.setAttribute('class','intro-regular col-dark');
+      p.setAttribute('class','intro-regular');
       p.innerText = 'Thank you for subscribing  🤙';
       div.appendChild(p);
       boxForm.appendChild(div);
     }, 1000); 
-    return true;
   }
 
 
@@ -200,8 +260,18 @@ const URLs = {
   const getCurrentDate = () => {
     let date = new Date();
     let customDate = date.toString().split(' ').slice(1,4);
-    customDate.splice(2, 0, ",");
+    customDate.splice(2, 0, ','  );
     return customDate.join(' ');// month day , year
+  }
+
+  const clearInput = (obj) =>{
+    [...obj].forEach(input =>{
+      input
+    })
+    obj.mail.value = '';
+    obj.name.value = '';
+    obj.tel.value = '';
+    obj.msg.value = '';
   }
 
 
@@ -216,7 +286,7 @@ const URLs = {
       case 'index':
                   let responseJson = await getProjectAll();
                   generateDataProjects(responseJson, namePage);
-                  btnSub.addEventListener('click', getEmailFormSubscribe.bind(btnSub), false)
+                  btnSub.addEventListener('click', getEmailFormSubscribe, false)
                   break;
       case 'project':
                     let idProject = localStorage.getItem("project");
@@ -225,7 +295,7 @@ const URLs = {
                       generateDataProjectById(responseJson, idProject);
                       let responseJsonAll = await getProjectAll();
                       generateDataProjects(responseJsonAll, namePage);
-                      btnSub.addEventListener('click', getEmailFormSubscribe.bind(btnSub), false)
+                      btnSub.addEventListener('click', getEmailFormSubscribe, false)
                     }else{
                       location.href = window.location.href;
                     }
@@ -233,13 +303,13 @@ const URLs = {
       case 'service':
                     break;
       case 'contact':
+                    let btnContact = document.querySelector('.btn-contact');
+                    btnContact.addEventListener('click', getValueFormContact, false)
                     break;
     }
     
   }) 
 
-
- 
 
   const getNamePage = () =>{
     let URLactual = window.location.pathname;

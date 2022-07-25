@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,100&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="./js/callFetch.js"></script>
     <title>Mid term project</title>
 </head>
 <body>
@@ -42,14 +43,19 @@
                         </div>
                         <div class="box-tel">
                             <label for="name">Phone</label>
-                            <input type="tel" name="Phone" id="Phone" placeholder="Enter your phone number">
+                            <input type="tel" name="phone" id="phone"
+                            min="400000000" max="899999999"  
+                           
+                            placeholder="Enter your phone number"
+                            title="9 digit mobile phone format"
+                            >
                         </div>
                     </div>
                     <div class="input-box box-message">
                         <label for="name">Message</label>
                         <textarea name="message" id="message" cols="30" rows="10" placeholder="Write your message here ...."></textarea>
                     </div>
-                    <input class="btn-style" value="Submit" type="submit"></button>
+                    <input class="btn-style btn-contact" value="Submit" type="submit"></button>
                 </form>
             </div>
         </main>

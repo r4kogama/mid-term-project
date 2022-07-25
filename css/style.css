@@ -1,3 +1,17 @@
+/********* Animations *********/
+/* @keyframes tostar{
+    from{ 
+        opacity: 0;
+        transform: translateX(150%) rotateZ(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0%)  rotateZ(0deg);
+    }
+} */
+
+
+
 /******************
 ****** BODY *******
 *******************/
@@ -50,7 +64,76 @@ body{
 .form-contact input::placeholder{
 color: var(--Neutral-medium);
 }
-  
+
+
+/*********** TOSTAR STYLE****************/
+/* 
+.tostar-container{
+    animation-name: tostar ;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-duration: 600ms;
+    position: absolute;
+    right: 20px;
+    top: 20%;
+    padding: 10px 20px;
+    background: #5cb85c;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    flex-direction: row-reverse;
+    max-width: 330px;
+    margin-left: 20px;
+}
+
+.tostar-btn{
+    min-width: 50px;
+    height: 50px;
+    background: #ffffff47;
+    border-radius: 50px;
+    margin-left: 20px;
+    position: relative;
+    border: 1px solid white;
+    transition:  all 250ms ease-in;
+    box-shadow: 3px 3px 0px #1c7c16;
+    opacity: .8;
+    cursor: pointer;
+}
+.tostar-btn:hover{
+    width: 50px;
+    height: 50px;
+    background: #ffffff7a;
+    border-radius: 50px;
+    margin-left: 20px;
+    position: relative;
+    border: 1px solid white;
+    transition:  all 250ms ease-in-out;
+    box-shadow: 1px 1px 0px #11500e;
+}
+.tostar-btn:before {
+    content: '';
+    width: 36px;
+    height: 3px;
+    background: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotateZ(45deg) translate3d(20px, 12px, 0px);
+}
+
+.tostar-btn:after {
+    content: '';
+    width: 36px;
+    height: 3px;
+    background: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotateZ(315deg) translate3d(-12px, 20px, 0px);
+} */
 
 /********************
 ****** HEADER *******
@@ -121,9 +204,7 @@ h1{
 /******************
 ****** MAIN  ******
 *******************/
-#main-content{
 
-}
 
 #container-section-main{
     padding: 0px 20px;
@@ -608,6 +689,7 @@ h1{
 
 .container-form-contact{
     display: flex;
+    position: relative;
     flex-direction: column;
     padding: 0 20px;
     margin-top: 140px;
