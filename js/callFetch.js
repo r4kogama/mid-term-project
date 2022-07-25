@@ -1,4 +1,3 @@
-
 // urls save in json
 const URLs = {
     projects: 'https://jsonplaceholder.typicode.com/posts/',
@@ -13,9 +12,9 @@ const URLs = {
 
   /****** Request fetch get project  by id *******/
 
-  const getProjectChooseId = async (id) => {
+  const _getProjectChooseById = async (id) => {
     try{
-        let response = await fetch(URLs.projects.concat('?id=').concat(id));
+        let response = await fetch(URLs.projects.concat('?id=').concat(id));//array obj
         if (!response.ok) { //bad
           let error = await response.text();
           throw new Error(error);
@@ -28,7 +27,7 @@ const URLs = {
   
   /****** Request fetch get project all *******/
 
-  const getProjectAll = async () => {
+  const _getProjectAll = async () => {
     try{
         let response = await fetch(URLs.projects);
         if (!response.ok) { //bad
@@ -43,7 +42,7 @@ const URLs = {
   
   /******** Request Register subscribe by email *********** */
 
-  const postInsertEmailSubcribe = async (mail, current) => {
+  const _postInsertEmailSubcribe = async (mail, current) => {
     try{
       let params = {
           method: 'POST',
@@ -69,7 +68,7 @@ const URLs = {
 
   /******** Request insert contact  *********** */
 
-  const postInsertFormContact = async (objInput) => {
+  const _postInsertFormContact = async (objInput) => {
     try{
       let formData = new FormData();
       formData.append('date', new Date().toLocaleDateString());
@@ -104,18 +103,22 @@ const URLs = {
 
   const generateDataProjectById = (datas, idPhoto) => {
     const sectionProject = document.querySelector('.section-project-container');
-    let titleProject = getTitleProject(datas);
+    //let titleProject = getTitleProject(datas[0].id);//object
     let currentDate = getCurrentDate();
-    printDataProjectById( sectionProject, titleProject, idPhoto, datas.title, datas.body, currentDate );
+    let titleProject = getTitle(datas[0]);
+    let photo = idPhoto <= 6 ? idPhoto: 'not-found';
+    printDataProjectById( sectionProject, titleProject, photo , ...datas, currentDate );
   }
 
-  const printDataProjectById = ( node, title, photo, subTitle, text, date ) => {
+
+
+  const printDataProjectById = ( node, title, photo, dataObj, date ) => {
     node.innerHTML = `
     <article class="article-project-wrap">
         <header class="box-project-title">
             <h2>${title}</h2>
             <div class="box-subtitle">
-              <p class="intro-medium">${subTitle}</p>
+              <p class="intro-medium">${dataObj.title}</p>
               <p class="intro-regular col-dark">Completed on <span class="data-now">${date}</span></p>
             </div>
         </header>
@@ -124,7 +127,7 @@ const URLs = {
             <img class="photo-shadow" src="./assets/${photo}.jpg" alt="project-image-${photo}">
         </div>
         <div class="box-project-info headline-medium">
-            <p>${text}</p>
+            <p>${dataObj.body}</p>
         </div>
     </article>
     `;
@@ -137,27 +140,35 @@ const URLs = {
   const generateDataProjects = (datas, name) => {
     if(name === 'index'){
       let copyArr = datas.slice(0, 3);
-      copyArr.forEach( item => {
-        let titleProject = getTitleProject(item);
-        printDataProjects( item, titleProject);
+      copyArr.forEach( (item , i) => {
+        let namePhoto = getTitleProject(item.id);
+        let titleProject = getTitle(datas[i]);
+        printDataProjects( item, titleProject, namePhoto);
       });
     }else{
-      for(let i = 0; i < 3; i++){
-          let numAleProject = getProjectRandom(datas.length, num = 3);//100
-          let arrTitle = getTitleProject(datas[numAleProject]);//item aleatory
-          let numAleTitle = getProjectRandom(arrTitle.length, num = 0);//3
-          printDataProjects( datas[numAleProject], arrTitle[numAleTitle]);
-      }
+     datas.every( (item, i , array) =>{
+        if(i >= 3) {
+          updateLocalStorageProject();
+          return false;//BREAK
+        }
+        let numAleProject = getProjectRandom(array.length, num = 3);//100 to 3
+        let namePhoto = getTitleProject(array[numAleProject].id);//array titles
+        //let numAleTitle = getProjectRandom(arrTitle.length, num = 0);//3 to 0
+        let titleProject = getTitle(array[numAleProject]);
+
+        printDataProjects( array[numAleProject], titleProject, namePhoto);
+        return true;//CONTINUE
+     })
     }
   }
 
 
-  const printDataProjects = (project, title) =>{
+  const printDataProjects = (project, title, photo) =>{
     //let typeProject = getTypeProject(title.toLowerCase());
     let container = document.querySelector('.content-article-project');
     container.innerHTML += `
       <article class="simplify project-article">
-        <div class="background-${title.toLowerCase()} background-style-project"></div>
+        <div class="background-${photo.toLowerCase()} background-style-project"></div>
         <div class="content-info-project">
             <header>
                 <h4>${title}</h4>
@@ -178,7 +189,7 @@ const URLs = {
       e.preventDefault();
       let date = new Date().toLocaleDateString();
       let email = document.querySelector('.box-subs #email');
-      let response = await postInsertEmailSubcribe(email.value, date);
+      let response = await _postInsertEmailSubcribe(email.value, date);
       email.value = '';
       if(Object.keys(response).length !== 0){ //object no empty
         statusSucceffulDataInsert(e, 'subscribe');
@@ -199,7 +210,7 @@ const URLs = {
         tel : document.querySelector('.input-box #phone'),
         msg : document.querySelector('.input-box #message'),
       }
-      let response = await postInsertFormContact(objFormInput);
+      let response = await _postInsertFormContact(objFormInput);
       clearInput(objFormInput);
       if(Object.keys(response).length !== 0){// no empty
         statusSucceffulDataInsert(e, 'contact');
@@ -210,7 +221,21 @@ const URLs = {
    }
 
   /********** Print message for subscribe  & form contact ********/
-   
+  
+  const statusSucceffulDataInsert = (evt, status) =>{
+    if(status === 'subscribe'){
+      evt.target.innerText = 'Sending email... 💌';
+      printMessageSubscribe(evt);
+    }else if(status === 'contact' ){
+      document.querySelector('.btn-contact').disabled = true;
+      evt.target.value = 'Sending message... 📬'
+      //let result = tostarMessage(dataTostar);
+      if(result){
+        evt.target.value = 'Submit'
+        document.querySelector('.btn-contact').disabled = false;
+      }
+    }
+  }
 
   const printMessageSubscribe = (e) => {
     setTimeout(() => {
@@ -227,22 +252,29 @@ const URLs = {
   }
 
 
+
   /********** Helper Fuctions *********** */
 
-  const getTitleProject = (datosJson) => {
-    switch(datosJson.id){
+ const getTitleProject = (num) => {
+    switch(num){
         case 1 :
            return "Simplify";
         case 2 :
             return "Dashcoin";
         case 3 :
             return "Vectorify";
+        case 4 :
+            return "Orbit";
+        case 5 :
+            return "Purify";
+        case 6 :
+            return "CryptoPie";
         default:
-            return ['Orbit', 'Purify', 'CryptoPie'];
+            return "not-found";
     }
   }
 
-  const getTypeProject = (type) => {
+/*   const getTypeProject = (type) => {
     switch(type){
         case 'simplify' :
            return "UI Design & App Development";
@@ -251,10 +283,14 @@ const URLs = {
         case 'vectorify' :
             return "User Experience Design";
     }
-  }
+  } */
   
   const getProjectRandom = (max, min) => {
     return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  const getTitle = (data) => {
+    return data.title.split(' ').splice(0, 1).join('');
   }
   
   const getCurrentDate = () => {
@@ -265,9 +301,6 @@ const URLs = {
   }
 
   const clearInput = (obj) =>{
-    [...obj].forEach(input =>{
-      input
-    })
     obj.mail.value = '';
     obj.name.value = '';
     obj.tel.value = '';
@@ -280,37 +313,57 @@ const URLs = {
    *****************/
 
   window.addEventListener('load', async () => {
-    let btnSub = document.querySelector('.btn-subs');
-    let namePage = getNamePage()[0];
-    switch(namePage){
-      case 'index':
-                  let responseJson = await getProjectAll();
-                  generateDataProjects(responseJson, namePage);
-                  btnSub.addEventListener('click', getEmailFormSubscribe, false)
-                  break;
-      case 'project':
-                    let idProject = localStorage.getItem("project");
-                    if(idProject !== 'undefined'){
-                      let responseJson = await getProjectChooseId(idProject);
-                      generateDataProjectById(responseJson, idProject);
-                      let responseJsonAll = await getProjectAll();
-                      generateDataProjects(responseJsonAll, namePage);
-                      btnSub.addEventListener('click', getEmailFormSubscribe, false)
-                    }else{
-                      location.href = window.location.href;
-                    }
+    try{
+      let btnSub = document.querySelector('.btn-subs');
+      let namePage = getNamePage()[0];
+      switch(namePage){
+        case 'index':
+                    let responseJson = await _getProjectAll();
+                    generateDataProjects(responseJson, namePage);
+                    btnSub.addEventListener('click', getEmailFormSubscribe, false)
                     break;
-      case 'service':
-                    break;
-      case 'contact':
-                    let btnContact = document.querySelector('.btn-contact');
-                    btnContact.addEventListener('click', getValueFormContact, false)
-                    break;
+        case 'project':
+                      let idProject = localStorage.getItem("project");
+                      if(idProject !== 'undefined'){
+                        let responseJson = await _getProjectChooseById(idProject);
+                        generateDataProjectById(responseJson, idProject);
+                        let responseJsonAll = await _getProjectAll();
+                        generateDataProjects(responseJsonAll, namePage);
+                        btnSub.addEventListener('click', getEmailFormSubscribe, false)
+                      }else{
+                        location.href = window.location.href;
+                      }
+                      break;
+        case 'service':
+                      break;
+        case 'contact':
+                      let btnContact = document.querySelector('.btn-contact');
+                      btnContact.addEventListener('click', getValueFormContact, false)
+                      break;
+      }
+
+    }catch(err){
+      console.log(err);
     }
     
   }) 
 
 
+  /************ update local storage********** */
+
+  const updateLocalStorageProject = () => {
+    let links =  document.querySelectorAll('.learn-more');
+    links.forEach( link =>{  
+        link.addEventListener('click', setLocalStorageDataProject);
+    })
+  }
+
+  const setLocalStorageDataProject =  (e) =>{
+    let link =  e.currentTarget.dataset.project;
+    localStorage.setItem('project', link);
+  }
+
+  /********* Get name actual page ************* */
   const getNamePage = () =>{
     let URLactual = window.location.pathname;
     let arrUrl = URLactual.split('/');

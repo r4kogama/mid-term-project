@@ -1,14 +1,14 @@
 /********* Animations *********/
-/* @keyframes tostar{
+/*  @keyframes tostar{
     from{ 
         opacity: 0;
-        transform: translateX(150%) rotateZ(-10deg);
+        transform: translateX(150%) rotateZ(-2deg);
     }
     to {
         opacity: 1;
         transform: translateX(0%)  rotateZ(0deg);
     }
-} */
+}  */
 
 
 
@@ -625,11 +625,15 @@ h1{
 .background-vectorify{
     background: url('../assets/3.jpg') no-repeat;
 }
+.background-not-found{
+    background: url('../assets/not-found.jpg') no-repeat;
+}
 
 .background-style-project{
     background-size: cover;
     height: 240px;
     position: relative;
+    background-position: 50% 50%;
 }
 
 

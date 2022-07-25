@@ -1,5 +1,5 @@
 
-const localStorageData =  (e) =>{
+const setLocalStorageData =  (e) =>{
   let link =  e.currentTarget.dataset.project;
   localStorage.setItem('project', link);
 }
@@ -8,7 +8,7 @@ window.addEventListener('load',  () =>{
    setTimeout(() => {
     let links =  document.querySelectorAll('.learn-more');
     links.forEach( link =>{  
-        link.addEventListener('click', localStorageData);
+        link.addEventListener('click', setLocalStorageData);
     })
   }, 100); 
 
@@ -20,7 +20,7 @@ window.addEventListener('load',  () =>{
    console.log(links)
    links.forEach(async link =>{  
      console.log('ok')
-      await link.addEventListener('click', localStorageData);
+      await link.addEventListener('click', setLocalStorageData);
    }) 
 }
 
