@@ -221,22 +221,6 @@ const URLs = {
    }
 
   /********** Print message for subscribe  & form contact ********/
-  
-  const statusSucceffulDataInsert = (evt, status) =>{
-    if(status === 'subscribe'){
-      evt.target.innerText = 'Sending email... 💌';
-      printMessageSubscribe(evt);
-    }else if(status === 'contact' ){
-      document.querySelector('.btn-contact').disabled = true;
-      evt.target.value = 'Sending message... 📬'
-      //let result = tostarMessage(dataTostar);
-      if(result){
-        evt.target.value = 'Submit'
-        document.querySelector('.btn-contact').disabled = false;
-      }
-    }
-  }
-
   const printMessageSubscribe = (e) => {
     setTimeout(() => {
       e.target.parentNode.remove();
@@ -252,6 +236,68 @@ const URLs = {
   }
 
 
+   const dataTostar ={
+    message : 'Consult Sent Thanks 🤩',
+    node : '.wrapper-tostar'
+   }
+   
+  const statusSucceffulDataInsert = (evt, status) =>{
+    if(status === 'subscribe'){
+      evt.target.innerText = 'Sending email... 💌';
+      printMessageSubscribe(evt);
+    }else if(status === 'contact' ){
+      document.querySelector('.btn-contact').disabled = true;
+      evt.target.value = 'Sending message... 📬'
+      tostarMessage(dataTostar);
+    }
+  }
+
+
+
+  const tostarMessage = (objData) =>{
+    try{
+      createTostar(objData);
+      counterBack();
+    }catch(err){
+      console.log(`Error create tostar: ${err}`);
+    }
+  }
+
+const createTostar = (obj) => {
+  let container = document.querySelector(obj.node);
+  let tostar = document.createElement('div');
+  tostar.setAttribute('class','tostar-container');
+  let text = document.createElement('p');
+  text.setAttribute('class','headline-medium');
+  text.innerText = obj.message;
+  let btnClose = document.createElement('div');
+  btnClose.setAttribute('class','tostar-btn');
+  btnClose.setAttribute("onclick","removeTostar(this.parentNode)");
+  container.appendChild(tostar);
+  tostar.appendChild(btnClose);
+  tostar.appendChild(text);
+}
+
+ var count = 3;
+const counterBack = () => {
+  let tostar = document.querySelector(".tostar-container");
+    if ( count > 0 ){
+        --count;
+        var time = setTimeout(counterBack, 1000);
+    }else{
+      if(tostar != null){
+        document.querySelector(".tostar-btn").addEventListener('click', removeTostar(tostar));
+      }
+      clearTimeout(time);
+    }
+}  
+
+  const removeTostar = (node) =>{
+    node.remove();
+    let btnContact = document.querySelector('.btn-contact');
+      btnContact.disabled = false;
+      btnContact.value = 'Submit';
+  } 
 
   /********** Helper Fuctions *********** */
 
@@ -301,7 +347,7 @@ const URLs = {
   }
 
   const clearInput = (obj) =>{
-    obj.mail.value = '';
+    obj.email.value = '';
     obj.name.value = '';
     obj.tel.value = '';
     obj.msg.value = '';
