@@ -23,22 +23,22 @@ class Message {
     }
 
 
-    validateEmail(input) {
+    validateEmail() {
         let reg = /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,3}$/;
-        if(reg.test(input) ==  true) return true; //email correct
+        if(reg.test(this.email) ==  true) return true; //email correct
         return false;
     }
 
-    validatePhone(input){
+    validatePhone(){
         let reg = /^(\d{3})[- ]?(\d{3})[- ]?(\d{3})$/;
-        if(reg.test(input) ==  true) return true;//phone correct
+        if(reg.test(this.phone) ==  true) return true;//phone correct
         return false;
     }
     
-    validateMessage(input){
+    validateMessage(){
         let reg = /^[a-zA-Z0-9!@#$€%^&*()_+\-=\[\]{};':"\\|,.<>\/?\s]{10,450}$/;
-        if(reg.test(input) ==  true){
-            let cont = input.split(' ').reduce((acc, word) => ( typeof word === 'string' ? (acc += 1) : acc ), 0);
+        if(reg.test(this.message) ==  true){
+            let cont = this.message.split(' ').reduce((acc, word) => ( typeof word === 'string' ? (acc += 1) : acc ), 0);
             if(cont > 120){//max 120 words
                 return false;
             }
@@ -47,10 +47,10 @@ class Message {
         return false;
     }
 
-    validateName(input){
+    validateName(){
         let reg = /^[^0-9][a-zA-Z\s]{8,40}$/;
-        if(reg.test(input) ==  true){
-            let spacesWords = input.split(' ').filter( e =>{
+        if(reg.test(this.name) ==  true){
+            let spacesWords = this.name.split(' ').filter( e =>{
                 return e != '';//without extra spaces
             }).reduce((acc, word) => ( typeof word === 'string' ? (acc += 1) : acc ), 0);
             if(spacesWords < 2){//less 2 words
@@ -156,16 +156,16 @@ const validateFormularyContact = () => {
                       form[1].value.trim().toLowerCase(),//email
                       form[2].value.trim(),//tel
                       form[3].value.trim() );//message
-                if(!objForm.validateName(objForm.name)){
+                if(!objForm.validateName()){
                     generateTagMessage("invalid", form[1] , "wrong", "Wrong full name format");
                     valid = false;                    
-                }else if(!objForm.validateEmail(objForm.email)){
+                }else if(!objForm.validateEmail()){
                     generateTagMessage("invalid", form[2] , "wrong", "Wrong email format");
                     valid = false;
-                }else if(!objForm.validatePhone(objForm.phone)){
+                }else if(!objForm.validatePhone()){
                     generateTagMessage("invalid", form[3] , "wrong", "Wrong phone format");
                     valid = false;                    
-                }else if(!objForm.validateMessage(objForm.message)){
+                }else if(!objForm.validateMessage()){
                     generateTagMessage("invalid", form[4] , "wrong", "Wrong message format");
                     valid = false;                   
                 }

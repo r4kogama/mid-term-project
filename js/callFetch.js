@@ -213,7 +213,7 @@ const URLs = {
       let response = await _postInsertFormContact(objFormInput);
       clearInput(objFormInput);
       if(Object.keys(response).length !== 0){// no empty
-        statusSucceffulDataInsert(e, 'contact');
+        controlStatusSucceffulDataInsert(e, 'contact');
       }
     }catch(err){
       console.log(`Error form contact: ${err}`)
@@ -236,68 +236,29 @@ const URLs = {
   }
 
 
-   const dataTostar ={
-    message : 'Consult Sent Thanks 🤩',
-    node : '.wrapper-tostar'
-   }
    
-  const statusSucceffulDataInsert = (evt, status) =>{
-    if(status === 'subscribe'){
-      evt.target.innerText = 'Sending email... 💌';
-      printMessageSubscribe(evt);
-    }else if(status === 'contact' ){
-      document.querySelector('.btn-submit-contact').disabled = true;
-      evt.target.value = 'Sending message... 📬'
-      tostarMessage(dataTostar);
-    }
-  }
-
-
-
-  const tostarMessage = (objData) =>{
+  const dataTostar = {message : 'Mailing succesfull!👌 We reply soon 🤩'}
+  //var tostar = '';
+  const controlStatusSucceffulDataInsert = (evt, option) =>{
     try{
-      createTostar(objData);
-      counterBack();
+      switch(option){
+        case 'subscribe':
+              evt.target.innerText = 'Sending email... 💌';
+              printMessageSubscribe(evt);
+        break;
+        case 'contact':
+              document.querySelector('.btn-submit-contact').disabled = true;
+              evt.target.value = 'Sending message... 📬'
+              let tostar = new Tostar(dataTostar);
+              tostar.createTostar(tostar);
+              tostar.counterBack();
+        break;
+      }
     }catch(err){
-      console.log(`Error create tostar: ${err}`);
+      throw new Error(err);
     }
   }
 
-const createTostar = (obj) => {
-  let container = document.querySelector(obj.node);
-  let tostar = document.createElement('div');
-  tostar.setAttribute('class','tostar-container');
-  let text = document.createElement('p');
-  text.setAttribute('class','headline-medium');
-  text.innerText = obj.message;
-  let btnClose = document.createElement('div');
-  btnClose.setAttribute('class','tostar-btn');
-  btnClose.setAttribute("onclick","removeTostar(this.parentNode)");
-  container.appendChild(tostar);
-  tostar.appendChild(btnClose);
-  tostar.appendChild(text);
-}
-
- var count = 3;
-const counterBack = () => {
-  let tostar = document.querySelector(".tostar-container");
-    if ( count > 0 ){
-        --count;
-        var time = setTimeout(counterBack, 1000);
-    }else{
-      if(tostar != null){
-        document.querySelector(".tostar-btn").addEventListener('click', removeTostar(tostar));
-      }
-      clearTimeout(time);
-    }
-}  
-
-  const removeTostar = (node) =>{
-    node.remove();
-    let btnContact = document.querySelector('.btn-submit-contact');
-      btnContact.disabled = false;
-      btnContact.value = 'Submit';
-  } 
 
   /********** Helper Fuctions *********** */
 

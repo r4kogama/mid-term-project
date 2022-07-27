@@ -40,6 +40,3 @@ window.addEventListener('load',  () =>{
     let namePage = getCurrentPage();
     getCurrentPageStyle(namePage);
 });
-   
-     
-   
