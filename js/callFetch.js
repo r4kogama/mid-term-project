@@ -246,7 +246,7 @@ const URLs = {
       evt.target.innerText = 'Sending email... 💌';
       printMessageSubscribe(evt);
     }else if(status === 'contact' ){
-      document.querySelector('.btn-contact').disabled = true;
+      document.querySelector('.btn-submit-contact').disabled = true;
       evt.target.value = 'Sending message... 📬'
       tostarMessage(dataTostar);
     }
@@ -294,7 +294,7 @@ const counterBack = () => {
 
   const removeTostar = (node) =>{
     node.remove();
-    let btnContact = document.querySelector('.btn-contact');
+    let btnContact = document.querySelector('.btn-submit-contact');
       btnContact.disabled = false;
       btnContact.value = 'Submit';
   } 
@@ -358,17 +358,24 @@ const counterBack = () => {
    ***** LOAD *******
    *****************/
 
+  /********* Get name actual page ************* */
+  const getNamePage = () =>{
+    let URLactual = window.location.pathname;
+    let arrUrl = URLactual.split('/');
+    return arrUrl[arrUrl.length-1].split('.')
+  }
+
   window.addEventListener('load', async () => {
     try{
       let btnSub = document.querySelector('.btn-subs');
       let namePage = getNamePage()[0];
       switch(namePage){
-        case 'index':
+        case 'index'://page index
                     let responseJson = await _getProjectAll();
                     generateDataProjects(responseJson, namePage);
                     btnSub.addEventListener('click', getEmailFormSubscribe, false)
                     break;
-        case 'project':
+        case 'project'://page project
                       let idProject = localStorage.getItem("project");
                       if(idProject !== 'undefined'){
                         let responseJson = await _getProjectChooseById(idProject);
@@ -380,10 +387,10 @@ const counterBack = () => {
                         location.href = window.location.href;
                       }
                       break;
-        case 'service':
+        case 'service'://page service
                       break;
-        case 'contact':
-                      let btnContact = document.querySelector('.btn-contact');
+        case 'contact'://page contact
+                      let btnContact = document.querySelector('input[type="submit"]');
                       btnContact.addEventListener('click', getValueFormContact, false)
                       break;
       }
@@ -409,9 +416,3 @@ const counterBack = () => {
     localStorage.setItem('project', link);
   }
 
-  /********* Get name actual page ************* */
-  const getNamePage = () =>{
-    let URLactual = window.location.pathname;
-    let arrUrl = URLactual.split('/');
-    return arrUrl[arrUrl.length-1].split('.')
-  }

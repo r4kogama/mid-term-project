@@ -3,18 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,100&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="./js/callFetch.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/mediaqueries.css">
+    <script src="./js/validator.js"></script>
+    <!-- <script src="./js/callFetch.js"></script> -->
     <title>Mid term project</title>
 </head>
 <body>
-    <div class="wrapper-section">
+    <div class="wrapper-section">            
         <header id="header-content" >
+            <div class="contain-burguer">
+                <a class="btn-burguer" href="#menu-show"><span></span></a>
+            </div>
+            <ul id="menu-show" class="intro-regular none menu-burguer">
+                <li class="containt-hide-burguer contain-burguer"><a class="btn-burguer-close btn-burguer" href="#menu-hide"><span></span></a></li>
+                <li><a class="home-html" href="index.html">Home</a></li>
+                <li><a class="project-html" href="project.html">Projects</a></li>
+                <li><a class="service-html" href="#">Services</a></li>
+                <li><a class="contact-html" href="contact.html">Contact</a></li>
+            </ul>
             <div class="box-logo">
                 <h1>Circle</h1>
                 <a href="index.html"><img src="./assets/circle.svg" alt="logo-circle"></a>   
@@ -26,7 +38,7 @@
                     <li><a class="service-html" href="#">Services</a></li>
                 </ul>
             </nav>
-            <a class="btn-style headline-medium " href="contact.html">Contact Us</a>
+            <a class="btn-style btn-contact headline-medium " href="contact.html">Contact Us</a>
         </header>
         <main id="main-content">
             <div class="container-form-contact">
@@ -34,28 +46,36 @@
                 <form action="" method="POST" class="form-contact">
                     <div class="input-box box-name">
                         <label for="name">Full name *</label>
-                        <input type="text" name="name" id="name" placeholder="Enter you full name">
+                        <input type="text" 
+                        name="fullname" id="name" class="fullname"
+                        placeholder="Enter you full name" 
+                        >
                     </div>
                     <div class="input-box-row input-box">
                         <div class="box-email">
                             <label for="name">Email</label>
-                            <input type="email" name="email" id="email" placeholder="Enter you email address">
+                            <input type="email" 
+                            name="email" id="email" class="mail"
+                            placeholder="Enter you email address" 
+                            >
                         </div>
                         <div class="box-tel">
                             <label for="name">Phone</label>
-                            <input type="tel" name="phone" id="phone"
-                            min="400000000" max="899999999"  
-                           
+                            <input type="tel" name="phone" id="phone" class="telf"
+                            min="400000000" max="899999999"
+                            pattern="[0-9]{3}[0-9]{3}[0-9]{3}"
                             placeholder="Enter your phone number"
-                            title="9 digit mobile phone format"
-                            >
+                            title="9 digit mobile phone format">
                         </div>
                     </div>
                     <div class="input-box box-message">
                         <label for="name">Message</label>
-                        <textarea name="message" id="message" cols="30" rows="10" placeholder="Write your message here ...."></textarea>
+                        <textarea name="message" id="message" class="textarea"
+                        cols="30" rows="10" 
+                        placeholder="Write your message here ...." 
+                        ></textarea>
                     </div>
-                    <input class="btn-style  btn-contact" value="Submit" type="submit"></button>
+                    <input class="btn-style btn-submit-contact" value="Submit" type="submit"></button>
                     <div class="wrapper-tostar"></div>
                 </form>
             </div>

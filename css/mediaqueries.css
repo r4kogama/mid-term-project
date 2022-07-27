@@ -1,0 +1,68 @@
+/* // Small devices (landscape phones, 576px)
+ */
+ @media only screen and (max-width: 575.98px) { 
+    .none{
+        display: block!important;
+    }
+    #header-content .menu-header, .btn-contact{
+        display: none;
+    }
+    #header-content {
+        flex-direction: row-reverse;
+    }
+    .contain-burguer{
+        display: flex!important;
+    }
+  }
+
+/* // Medium devices (tablets, 767px)
+ */
+ @media only screen and (max-width: 767.98px) { 
+    .none{
+        display: block!important;
+    }
+    #header-content .menu-header, .btn-contact{
+        display: none;
+    }
+    #header-content {
+        flex-direction: row-reverse;
+    }
+    .contain-burguer{
+        display: flex!important;
+    }
+  }
+
+/* // Large devices (desktops, 991px )
+ */
+ @media only screen and (max-width: 991.98px) { 
+    .none{
+        display: block!important;
+    }
+    #header-content .menu-header,.btn-contact{
+        display: none;
+    }
+    #header-content {
+        flex-direction: row-reverse;
+    }
+    .contain-burguer{
+        display: flex!important;
+    }
+  }
+
+/* // X-Large devices (large desktops, 1199px )
+ */
+ @media only screen and  (max-width: 1199.98px) {  
+    .contain-burguer{
+        display: none;
+    }
+ }
+
+/* // XX-Large devices (larger desktops, 1399px )
+ */
+ @media only screen and (min-width: 1199.99px)  { 
+    .contain-burguer{
+        display: none;
+    }
+  }
+
+  

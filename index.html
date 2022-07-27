@@ -3,31 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,100&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/mediaqueries.css">
     <script src="./js/pageLocation.js"></script>
     <script src="./js/callFetch.js"></script>
     <title>Mid term project</title>
 </head>
 <body>
-    <header id="header-content" class="wrapper-section">
-        <div class="box-logo">
-            <h1>Circle</h1>
-            <a href="index.html"><img src="./assets/circle.svg" alt="logo-circle"></a>   
-        </div>
-        <nav id="menu" class="menu-header">
-            <ul class="headline-medium">
+    <div class="wrapper-section">            
+        <header id="header-content" >
+            <div class="contain-burguer">
+                <a class="btn-burguer" href="#menu-show"><span></span></a>
+            </div>
+            <ul id="menu-show" class="intro-regular none menu-burguer">
+                <li class="containt-hide-burguer contain-burguer"><a class="btn-burguer-close btn-burguer" href="#menu-hide"><span></span></a></li>
                 <li><a class="home-html" href="index.html">Home</a></li>
                 <li><a class="project-html" href="project.html">Projects</a></li>
                 <li><a class="service-html" href="#">Services</a></li>
+                <li><a class="contact-html" href="contact.html">Contact</a></li>
             </ul>
-        </nav>
-        <a class="btn-style headline-medium " href="contact.html">Contact Us</a>
-    </header>
+            <div class="box-logo">
+                <h1>Circle</h1>
+                <a href="index.html"><img src="./assets/circle.svg" alt="logo-circle"></a>   
+            </div>
+            <nav id="menu" class="menu-header">
+                <ul class="headline-medium">
+                    <li><a class="home-html" href="index.html">Home</a></li>
+                    <li><a class="project-html" href="project.html">Projects</a></li>
+                    <li><a class="service-html" href="#">Services</a></li>
+                </ul>
+            </nav>
+            <a class="btn-style btn-contact headline-medium " href="contact.html">Contact Us</a>
+        </header>
+    </div>
     <main id="main-content">
         <div class="wrapper-section">
             <div id="container-section-main">
