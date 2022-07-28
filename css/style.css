@@ -379,13 +379,13 @@ h1{
     margin-bottom: 125px;
     margin-top: 60px;
     position: relative;
-    z-index: -2;
 }
 
 .left-section{
     width: 50%;
     padding-right: 30px;
-    min-width: 480px
+    min-width: 480px;
+  
 }
 
 .right-section{
@@ -426,7 +426,10 @@ h1{
     right: 0;
     filter: drop-shadow(15px 15px 15px var(--InputBack));
 }
-
+.article-info-business header, .container-form-contact h2, .box-project-title, .box-info-business{
+    position: relative;
+    z-index: -2;
+}
 .article-info-business footer a:first-child{
     height: 52px;
     padding: 15px 28px;

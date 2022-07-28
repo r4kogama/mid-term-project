@@ -62,5 +62,5 @@ select {
 	font: inherit;
 }
 a{
-	text-decoration: none;
+	text-decoration: none!important;
 }

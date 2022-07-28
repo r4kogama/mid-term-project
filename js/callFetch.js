@@ -42,13 +42,13 @@ const URLs = {
   
   /******** Request Register subscribe by email *********** */
 
-  const _postInsertEmailSubcribe = async (mail, current) => {
+  const _postInsertEmailSubcribe = async (mail) => {
     try{
       let params = {
           method: 'POST',
           body: JSON.stringify({
           email: mail,
-          date : current
+          date : new Date().toLocaleDateString()
           }),
           headers: {
             'Content-type': 'application/json', 
@@ -68,14 +68,14 @@ const URLs = {
 
   /******** Request insert contact  *********** */
 
-  const _postInsertFormContact = async (objInput) => {
+  const _postInsertFormContact = async (objForm) => {
     try{
       let formData = new FormData();
       formData.append('date', new Date().toLocaleDateString());
-      formData.append('email', objInput.email.value);
-      formData.append('name', objInput.name.value);
-      formData.append('phone', objInput.tel.value);
-      formData.append('message', objInput.msg.value);
+      formData.append('email', objForm.email);
+      formData.append('name', objForm.name);
+      formData.append('phone', objForm.phone);
+      formData.append('message', objForm.message);
        //Create an object from the form data entries
       let formDataObject = Object.fromEntries(formData.entries());
       // Format the plain form data as JSON
@@ -187,12 +187,11 @@ const URLs = {
   const getEmailFormSubscribe = async (e) => {
     try{
       e.preventDefault();
-      let date = new Date().toLocaleDateString();
       let email = document.querySelector('.box-subs #email');
-      let response = await _postInsertEmailSubcribe(email.value, date);
+      let response = await _postInsertEmailSubcribe(email.value);
       email.value = '';
       if(Object.keys(response).length !== 0){ //object no empty
-        statusSucceffulDataInsert(e, 'subscribe');
+        controlMessagesSucceffulData(e ,'subscribe');
       }
     }catch(err){
       console.log(`Error subscribe: ${err}`)
@@ -201,19 +200,11 @@ const URLs = {
 
   /*********** Get value form contact generate request **************** */
 
-  const getValueFormContact = async (e) => {
+  const requestValueFormContact = async (eventCurrent, formObj) => {
     try{
-      e.preventDefault();
-      let objFormInput = {
-        email : document.querySelector('.input-box #email'),
-        name : document.querySelector('.input-box #name'),
-        tel : document.querySelector('.input-box #phone'),
-        msg : document.querySelector('.input-box #message'),
-      }
-      let response = await _postInsertFormContact(objFormInput);
-      clearInput(objFormInput);
+      let response = await _postInsertFormContact(formObj);
       if(Object.keys(response).length !== 0){// no empty
-        controlStatusSucceffulDataInsert(e, 'contact');
+        controlMessagesSucceffulData(eventCurrent, 'contact');
       }
     }catch(err){
       console.log(`Error form contact: ${err}`)
@@ -236,10 +227,10 @@ const URLs = {
   }
 
 
-   
-  const dataTostar = {message : 'Mailing succesfull!👌 We reply soon 🤩'}
-  //var tostar = '';
-  const controlStatusSucceffulDataInsert = (evt, option) =>{
+  /***************** SUCCESS HANDLER FUNCTION *********************/
+  const messagesTostars = {message : 'Mailing succesfull! 👌  We reply soon 🤩'}
+
+  const controlMessagesSucceffulData = (evt, option) =>{
     try{
       switch(option){
         case 'subscribe':
@@ -247,20 +238,21 @@ const URLs = {
               printMessageSubscribe(evt);
         break;
         case 'contact':
-              document.querySelector('.btn-submit-contact').disabled = true;
-              evt.target.value = 'Sending message... 📬'
-              let tostar = new Tostar(dataTostar);
+              let idxInput = [...evt].length-1;
+              evt[idxInput].disabled = true;
+              evt[idxInput].value = 'Sending message... 📬'
+              let tostar = new Tostar(messagesTostars);
               tostar.createTostar(tostar);
               tostar.counterBack();
         break;
       }
     }catch(err){
-      throw new Error(err);
+      console.log(err);
     }
   }
 
 
-  /********** Helper Fuctions *********** */
+  /********** Helper Fuctions PROJECT GENERATOR *********** */
 
  const getTitleProject = (num) => {
     switch(num){
@@ -280,18 +272,7 @@ const URLs = {
             return "not-found";
     }
   }
-
-/*   const getTypeProject = (type) => {
-    switch(type){
-        case 'simplify' :
-           return "UI Design & App Development";
-        case 'dashcoin' :
-            return "Web Development";
-        case 'vectorify' :
-            return "User Experience Design";
-    }
-  } */
-  
+ 
   const getProjectRandom = (max, min) => {
     return Math.floor(Math.random() * (max - min)) + min;
   }
@@ -305,13 +286,6 @@ const URLs = {
     let customDate = date.toString().split(' ').slice(1,4);
     customDate.splice(2, 0, ','  );
     return customDate.join(' ');// month day , year
-  }
-
-  const clearInput = (obj) =>{
-    obj.email.value = '';
-    obj.name.value = '';
-    obj.tel.value = '';
-    obj.msg.value = '';
   }
 
 
@@ -332,30 +306,25 @@ const URLs = {
       let namePage = getNamePage()[0];
       switch(namePage){
         case 'index'://page index
-                    let responseJson = await _getProjectAll();
-                    generateDataProjects(responseJson, namePage);
-                    btnSub.addEventListener('click', getEmailFormSubscribe, false)
-                    break;
+              let responseJson = await _getProjectAll();
+              generateDataProjects(responseJson, namePage);
+              btnSub.addEventListener('click', getEmailFormSubscribe, false)
+              break;
         case 'project'://page project
-                      let idProject = localStorage.getItem("project");
-                      if(idProject !== 'undefined'){
-                        let responseJson = await _getProjectChooseById(idProject);
-                        generateDataProjectById(responseJson, idProject);
-                        let responseJsonAll = await _getProjectAll();
-                        generateDataProjects(responseJsonAll, namePage);
-                        btnSub.addEventListener('click', getEmailFormSubscribe, false)
-                      }else{
-                        location.href = window.location.href;
-                      }
-                      break;
+              let idProject = localStorage.getItem("project");
+              if(idProject !== 'undefined'){
+                let responseJson = await _getProjectChooseById(idProject);
+                generateDataProjectById(responseJson, idProject);
+                let responseJsonAll = await _getProjectAll();
+                generateDataProjects(responseJsonAll, namePage);
+                btnSub.addEventListener('click', getEmailFormSubscribe, false)
+              }else{
+                location.href = window.location.href;
+              }
+              break;
         case 'service'://page service
-                      break;
-        case 'contact'://page contact
-                      let btnContact = document.querySelector('input[type="submit"]');
-                      btnContact.addEventListener('click', getValueFormContact, false)
-                      break;
+              break;
       }
-
     }catch(err){
       console.log(err);
     }

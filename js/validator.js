@@ -1,16 +1,3 @@
-const stateHide = { 'page_1': '/contact.html#menu-hide', 'page_2': '/index.html#menu-hide', 'page_2': '/project.html#menu-hide' }
-const stateShow = { 'page_1': '/contact.html#menu-show', 'page_2': '/index.html#menu-show', 'page_2': '/project.html#menu-show' }
-function locationHashChanged() {
-    if (location.hash === '#menu-hide') {
-         console.log(window.location.href.replace("#menu-hide", ''))
-        window.history.pushState(stateHide, '', window.location.href.replace("#menu-hide", '')); 
-    }
-    if (location.hash === '#menu-show') {
-         console.log(window.location.href.replace("#menu-show", ''))
-        window.history.pushState(stateShow, '', window.location.href.replace("#menu-show", '')); 
-    }
-}
-window.onhashchange = locationHashChanged;
 
 /********* class message formulary **********/
 class Message {
@@ -135,11 +122,13 @@ const generateTagMessage = (status, element, name, text) => {
             break;
     }
 }
-
-
-/********* all fields have been filled in correctly **********/
-const validFormSubmit = (ev) => {
-  
+//clean input formulary
+const clearInput = (form) =>{
+    form.forEach((item, i) => {
+        if(i <= form.length-2 ){
+            item.value = '';
+        }
+    })
 }
 
 
@@ -170,7 +159,8 @@ const validateFormularyContact = () => {
                     valid = false;                   
                 }
                 if(valid){
-                    validFormSubmit();
+                    clearInput(form);
+                    requestValueFormContact(e.currentTarget, objForm);
                 }
             }
         }catch(err){
