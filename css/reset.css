@@ -39,7 +39,10 @@ body {
 }
 ol, ul {
 	list-style: none;
+	padding-left: 0!important; 
+	padding-right: 0!important; 
 }
+
 blockquote, q {
 	quotes: none;
 }

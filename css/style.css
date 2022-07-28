@@ -80,12 +80,12 @@ html{
 
 body{
     box-sizing: border-box;
-    font-family: 'Roboto','times new roman','sans-serif';
-    font-size: 14px;
-    font-style: normal;
-    color: var(--Neutral-medium);
+    font-family: 'Roboto','times new roman','sans-serif'!important;
+    font-size: 14px!important;
+    font-style: normal!important;
+    color: var(--Neutral-medium)!important;
     scroll-behavior: smooth;
-    background: var(--Neutral-light); 
+    background: var(--Neutral-light)!important; 
 }
 
 .form-susbs input::placeholder{
@@ -904,7 +904,7 @@ input[type="submit"]{
 }
 
 
-.input-box input, textarea{
+.container-form-contact .input-box input, .input-box textarea{
     background: var(--InputBack);
     border: 0;
     padding: 0px 20px 0px 20px;
@@ -913,12 +913,12 @@ input[type="submit"]{
     height: 70px;
 }
 
-.input-box textarea{
+.container-form-contact .input-box textarea{
     height: 200px;
     padding-top: 20px;
 }
 
-.input-box input:focus:not(.box-subs input), textarea:focus{
+.input-box input:focus:not(.box-subs input), .input-box textarea:focus{
   border: 1px solid var(--Neutral-medium);
 }
 
@@ -956,7 +956,7 @@ input[type="submit"]{
 ****************/
 
 
-#footer-content{
+.footer-content{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -973,22 +973,35 @@ input[type="submit"]{
     width: 100%;
 }
 
-#footer-content .container-logo-footer{
-    width: 260px;
-}
-
-.menu-footer, .container-logo-footer{
+.container-logo-footer{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    width: 345px;
-    height: 112px;
+    justify-content: space-between;
+    height: 120px;
+    padding-left: 0!important;
 }
 
-.list-menu-up, .list-menu-down{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.menu-footer{
+    padding-right: 0!important;
+    padding-left: 0!important;
+}
+
+.article-info-business footer a:last-child {
+    height: 52px;
+    padding: 15px 28px;
+    margin-right: 40px;
+}
+address {
+    margin-bottom: 0!important;
+}
+
+.list-menu-up{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 2.5rem;
+    column-gap: 5rem;
+    justify-content: end;
+    text-align: left;
 }             
 
 .list-menu-up a, .list-menu-down a{
@@ -1001,10 +1014,6 @@ input[type="submit"]{
     color: var(--Primary);
 }
 
-.list-menu-up li:last-child{
-    padding-right: 35px;
-}
-
 
 /******* PRESETS STYLES **********/
 
@@ -1015,51 +1024,51 @@ input[type="submit"]{
     line-height: 70px;
 }
 h2{
-    font-size: 50px; 
-    font-weight: 700;
+    font-size: 50px!important; 
+    font-weight: 700!important;
     font-style: inherit;
     color: var(--Neutral-dark);
 }
 h3{
-    font-size: 40px; 
-    font-weight: 700;
+    font-size: 40px!important; 
+    font-weight: 700!important;
     font-style: inherit;
     color: var(--Neutral-dark);
 }
 h4{
-    font-size: 24px; 
-    font-weight: 700;
+    font-size: 24px!important; 
+    font-weight: 700!important;
     font-style: inherit;
     color: var(--Neutral-dark);
 }
 .intro-medium{
-    font-size: 24px; 
-    font-weight: 500;
+    font-size: 24px!important; 
+    font-weight: 500!important;
     font-style: inherit;
 }
 .intro-regular{
-    font-size: 20px; 
-    font-weight: 400;
+    font-size: 20px!important; 
+    font-weight: 400!important;
     font-style: inherit;
 }
 .headline-medium {
-    font-size: 17px; 
-    font-weight: 500;
+    font-size: 17px!important; 
+    font-weight: 500!important;
     font-style: inherit;
 }
 .headline-regular {
-   font-size: 17px; 
-   font-weight: 400;
+   font-size: 17px!important; 
+   font-weight: 400!important;
    font-style: inherit;
 }
 .caption-1{
-    font-size: 15px; 
-    font-weight: 400;
+    font-size: 15px!important; 
+    font-weight: 400!important;
     font-style: inherit;
 }
 .caption-2{
-    font-size: 13px; 
-    font-weight: 400;
+    font-size: 13px!important; 
+    font-weight: 400!important;
     font-style: inherit;
 }
 

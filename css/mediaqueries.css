@@ -13,6 +13,50 @@
     .contain-burguer{
         display: flex!important;
     }
+    .container-logo-footer{
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+        justify-content: space-around;
+    } 
+    .list-menu-up {
+        grid-gap: 1rem;
+        justify-content: space-around;
+    }
+    .container-logo-footer, .menu-footer {   
+        padding-left: 0!important;
+        padding-right: 0!important;
+    }
+    .left-section {
+        width: 100%;
+    }
+    .left-section {
+        width: 100%;
+        max-width: 650px;
+        text-align: center;
+        padding-right: 0;
+    }
+    .box-info-business {
+        padding-right: 0px; 
+    }
+    .article-info-business footer {
+        justify-content: center;
+        flex-direction: column;
+    }
+    .form-susbs {
+        flex-wrap: wrap;
+    }
+    .btn-subs {
+        max-width: 100%; 
+        margin-left: 0; 
+     }
+     #container-section-main{
+        justify-content: center;
+     }
+     .form-susbs {
+        margin-bottom: 90px;
+    }
+
   }
 
 /* // Medium devices (tablets, 767px)
@@ -30,6 +74,44 @@
     .contain-burguer{
         display: flex!important;
     }
+    .container-logo-footer {
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+        justify-content: space-around;
+    }
+    .list-menu-up {
+        grid-gap: 1rem;
+        justify-content: space-around;
+    }
+    .left-section {
+        width: 100%;
+    }
+    .left-section {
+        width: 100%;
+        max-width: 650px;
+        text-align: center;
+        padding-right: 0;
+    }
+    .box-info-business {
+        padding-right: 0px; 
+    }
+    .article-info-business footer {
+        justify-content: center;
+    }
+    .form-susbs {
+        flex-wrap: wrap;
+    }
+    .btn-subs {
+        max-width: 100%; 
+        margin-left: 0; 
+     }
+     #container-section-main{
+        justify-content: center;
+     }
+     .form-susbs {
+        margin-bottom: 90px;
+    }
   }
 
 /* // Large devices (desktops, 991px )
@@ -46,6 +128,31 @@
     }
     .contain-burguer{
         display: flex!important;
+    }
+    .left-section {
+        width: 100%;
+        max-width: 650px;
+        text-align: center;
+        padding-right: 0;
+    }
+    .box-info-business {
+        padding-right: 0px; 
+    }
+    .article-info-business footer {
+        justify-content: center;
+    }
+    .form-susbs {
+        flex-wrap: wrap;
+    }
+    .btn-subs {
+        max-width: 100%; 
+        margin-left: 0; 
+     }
+    #container-section-main{
+        justify-content: center;
+     }
+     .form-susbs {
+        margin-bottom: 90px;
     }
   }
 
